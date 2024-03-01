@@ -235,7 +235,7 @@ iface eth0 dhcp
     - Remember, the challenges are accessed through [https://ui.sandbox.ncaecybergames.org/challenges](https://ui.sandbox.ncaecybergames.org/challenges)
 
 **Applying our network config changes**
-- What is the command that you always need to apply changes of a config?
+- What is the command that you always need to apply changes of a config? -> `sudo systemctl restart networking`
     - FYI: The network service in Debian machines is typically called `networking`
 
 
@@ -406,8 +406,14 @@ can anyone figure out how to one-line this?
 * How to start the server? `systemctl` (in Ubuntu), just like we've used before
     - `sudo systemctl enable --now apache2`
 
+* How to load webpage content without gui?
+    - `curl <website_address>`
+    - `wget <website_address>`
 
-
+* Service status with systemctl?
+    - if service is `enabled` the service will start on restart. e.g. `sudo systemctl enable <service_name>` will start the service on restart.
+    - if service is `disabled` the service will NOT start on restart
+    - if service is `start` or `stop` it indicates the current status of the service. e.g. `sudo systemctl start <service_name>` will start the service(command using `stop` will stop the service).
 
 
 ## 25: Router configuration and MiniHack completionn 📡
@@ -450,7 +456,7 @@ Let's think about this... we know that machines in our target network diagram ar
 Remember that the network diagram specifies that the external router IP be `172.20.#.1/16`, and that the internal router IP be `192.168.#.1/24`.
 
 * As it turns out, you can specify the zone for firewall-cmd in the same file in CentOS that we used to statically configure its network settings
-    - The filepath, as a reminder, is `/etc/sysconfig/network-scripts/ifcfg-interfacename`
+    - The filepath, as a reminder, is `/etc/sysconfig/network-scripts/ifcfg-<interface_name>`
     - Simply add a new line at the bottom such as `ZONE=external`
 
 * Remember what we need to do every time we update a config file for a service
